@@ -27,10 +27,10 @@ public class Director {
    
    public void construirPersonaje(){
        builderPersonaje.crearNuevoPersonaje();
-       builderPersonaje.construirSpritesUp();
-       builderPersonaje.construirSpritesDown();
-       builderPersonaje.construirSpritesLeft();
-       builderPersonaje.construirSpritesRight();
+       builderPersonaje.construirSpritesMove();
+       builderPersonaje.construirSpritesWalk();
+       builderPersonaje.construirSpritesAttack();
+       builderPersonaje.construirSpritesDead();
    }
    
 }

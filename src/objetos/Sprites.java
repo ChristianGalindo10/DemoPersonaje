@@ -14,8 +14,8 @@ import javax.swing.ImageIcon;
  */
 public abstract class Sprites {
     
-    public abstract Image[] getSpritesUp();
-    public abstract Image[] getSpritesDown();
-    public abstract Image[] getSpritesLeft();
-    public abstract Image[] getSpritesRight();
+    public abstract ImageIcon[] getSpritesMove();
+    public abstract ImageIcon[] getSpritesWalk();
+    public abstract ImageIcon[] getSpritesAttack();
+    public abstract ImageIcon[] getSpritesDead();
 }

@@ -6,6 +6,7 @@
 package objetos;
 
 import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -14,23 +15,25 @@ import java.awt.Image;
 public class SpritesEnano extends Sprites {
 
     @Override
-    public Image[] getSpritesUp() {
+    public ImageIcon[] getSpritesMove() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Image[] getSpritesDown() {
+    public ImageIcon[] getSpritesWalk() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Image[] getSpritesLeft() {
+    public ImageIcon[] getSpritesAttack() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Image[] getSpritesRight() {
+    public ImageIcon[] getSpritesDead() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
     
 }

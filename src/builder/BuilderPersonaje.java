@@ -25,9 +25,9 @@ public abstract class BuilderPersonaje {
     //---------------------------
     
     //Métodos que deberán ser construídos por las clases que hereden de ésta
-    public abstract void construirSpritesUp();
-    public abstract void construirSpritesDown();
-    public abstract void construirSpritesLeft();
-    public abstract void construirSpritesRight();
+    public abstract void construirSpritesMove();
+    public abstract void construirSpritesWalk();
+    public abstract void construirSpritesAttack();
+    public abstract void construirSpritesDead();
     
 }

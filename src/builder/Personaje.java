@@ -6,35 +6,49 @@
 package builder;
 
 import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author USUARIO
  */
 public class Personaje {
-    
-    private Image[] up;
-    private Image[] down;
-    private Image[] left;
-    private Image[] right;
 
-    public void setUp(Image[] up) {
-        this.up = up;
+    private ImageIcon[] Move;
+    private ImageIcon[] Walk;
+    private ImageIcon[] Attack;
+    private ImageIcon[] Dead;
+
+    public void setMove(ImageIcon[] up) {
+        this.Move = up;
     }
 
-
-    public void setDown(Image[] down) {
-        this.down = down;
+    public void setWalk(ImageIcon[] down) {
+        this.Walk = down;
     }
 
-
-    public void setLeft(Image[] left) {
-        this.left = left;
+    public void setAttack(ImageIcon[] left) {
+        this.Attack = left;
     }
 
-    public void setRight(Image[] right) {
-        this.right = right;
+    public void setDead(ImageIcon[] right) {
+        this.Dead = right;
     }
-    
-    
+
+    public ImageIcon[] getMove() {
+        return Move;
+    }
+
+    public ImageIcon[] getWalk() {
+        return Walk;
+    }
+
+    public ImageIcon[] getAttack() {
+        return Attack;
+    }
+
+    public ImageIcon[] getDead() {
+        return Dead;
+    }
+
 }

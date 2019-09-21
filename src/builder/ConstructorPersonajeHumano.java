@@ -23,27 +23,27 @@ public class ConstructorPersonajeHumano extends BuilderPersonaje {
     }
     
     @Override
-    public void construirSpritesUp() {
+    public void construirSpritesMove() {
         usarSprites(new FabricaHumano());
-        personaje.setUp(sprites.getSpritesUp());
+        personaje.setMove(sprites.getSpritesMove());
     }
 
     @Override
-    public void construirSpritesDown() {
+    public void construirSpritesWalk() {
         usarSprites(new FabricaHumano());
-        personaje.setDown(sprites.getSpritesDown());
+        personaje.setWalk(sprites.getSpritesWalk());
     }
 
     @Override
-    public void construirSpritesLeft() {
+    public void construirSpritesAttack() {
         usarSprites(new FabricaHumano());
-        personaje.setLeft(sprites.getSpritesLeft());
+        personaje.setAttack(sprites.getSpritesAttack());
     }
 
     @Override
-    public void construirSpritesRight() {
+    public void construirSpritesDead() {
         usarSprites(new FabricaHumano());
-        personaje.setRight(sprites.getSpritesRight());
+        personaje.setDead(sprites.getSpritesDead());
     }
 
 }
