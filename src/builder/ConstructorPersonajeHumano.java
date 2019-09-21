@@ -5,15 +5,45 @@
  */
 package builder;
 
+
+import fabricas.FabricaHumano;
+import fabricas.FabricaPersonajes;
+import objetos.Sprites;
+
 /**
  *
  * @author USUARIO
  */
 public class ConstructorPersonajeHumano extends BuilderPersonaje {
 
-    @Override
-    public void contruirCuerpo() {
-        
+    Sprites sprites;
+    
+    public void usarSprites(FabricaPersonajes personaje){
+        sprites = personaje.crearSprites();
     }
     
+    @Override
+    public void construirSpritesUp() {
+        usarSprites(new FabricaHumano());
+        personaje.setUp(sprites.getSpritesUp());
+    }
+
+    @Override
+    public void construirSpritesDown() {
+        usarSprites(new FabricaHumano());
+        personaje.setDown(sprites.getSpritesDown());
+    }
+
+    @Override
+    public void construirSpritesLeft() {
+        usarSprites(new FabricaHumano());
+        personaje.setLeft(sprites.getSpritesLeft());
+    }
+
+    @Override
+    public void construirSpritesRight() {
+        usarSprites(new FabricaHumano());
+        personaje.setRight(sprites.getSpritesRight());
+    }
+
 }

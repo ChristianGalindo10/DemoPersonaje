@@ -11,18 +11,16 @@ import builder.*;
  */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
      public static void main(String[] args) {
         
-         //Crear el objeto director
-         Director objFabrica = new Director();
-         
-         //Crear los objetos concrete builder
+         Director director = new Director();
          BuilderPersonaje humano = new ConstructorPersonajeHumano();
          
-         objFabrica.construir(humano);
+         director.setBuilderPersonaje(humano);
+         director.construirPersonaje();
+         
+         Personaje personaje = director.getPersonaje();
+        
          
          
     }

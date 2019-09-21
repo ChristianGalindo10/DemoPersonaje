@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package builder;
+import fabricas.FabricaPersonajes;
 
 /**
  *
@@ -11,13 +12,25 @@ package builder;
  */
 public class Director {
     
-   public Director(){
-       
-   }
+   private BuilderPersonaje builderPersonaje;
+
+    public void setBuilderPersonaje(BuilderPersonaje bp) {
+        builderPersonaje = bp;
+    }
+    
+    public Personaje getPersonaje(){
+        return builderPersonaje.getPersonaje();
+    }
+   
+   
    //----------
    
-   public void construir(BuilderPersonaje builder){
-       
+   public void construirPersonaje(){
+       builderPersonaje.crearNuevoPersonaje();
+       builderPersonaje.construirSpritesUp();
+       builderPersonaje.construirSpritesDown();
+       builderPersonaje.construirSpritesLeft();
+       builderPersonaje.construirSpritesRight();
    }
    
 }

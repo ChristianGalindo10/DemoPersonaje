@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package builder;
+import fabricas.FabricaPersonajes;
 
 /**
  *
@@ -14,16 +15,19 @@ public abstract class BuilderPersonaje {
     protected Personaje personaje;
 
     public Personaje getPersonaje() {
-        return this.personaje;
+        return personaje;
     }
 
     public void crearNuevoPersonaje(){
-        this.personaje = new Personaje();
+        personaje = new Personaje();
     } 
     
     //---------------------------
     
     //Métodos que deberán ser construídos por las clases que hereden de ésta
-    public abstract void contruirCuerpo();
+    public abstract void construirSpritesUp();
+    public abstract void construirSpritesDown();
+    public abstract void construirSpritesLeft();
+    public abstract void construirSpritesRight();
     
 }
