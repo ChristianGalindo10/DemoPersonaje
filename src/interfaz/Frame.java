@@ -41,15 +41,26 @@ public class Frame extends javax.swing.JFrame {
         this.est4 = false;
     }
 
-    public Personaje instanciaPersonaje() {
+    public void instanciaPersonaje(String p) {
         Director director = new Director();
         BuilderPersonaje humano = new ConstructorPersonajeHumano();
 
-        director.setBuilderPersonaje(humano);
-        director.construirPersonaje();
-
-        Personaje personaje = director.getPersonaje();
-        return personaje;
+        
+        if (p.equalsIgnoreCase("Humano")) {
+            director.setBuilderPersonaje(humano);
+            director.construirPersonaje();
+            personaje = director.getPersonaje();
+        } else {
+            if (p.equalsIgnoreCase("Enano")) {
+                director.setBuilderPersonaje(humano);
+                director.construirPersonaje();
+                personaje = director.getPersonaje();
+            } else {
+                director.setBuilderPersonaje(humano);
+                director.construirPersonaje();
+                personaje = director.getPersonaje();
+            }
+        }
     }
 
     public boolean isEst1() {
@@ -155,7 +166,7 @@ public class Frame extends javax.swing.JFrame {
      * @throws InterruptedException
      */
     public void Anima1() throws InterruptedException {
-        personaje = instanciaPersonaje();
+
         if (isEst1()) {
             this.LblAnima1.setEnabled(true);
             int cont = 0;
@@ -227,39 +238,47 @@ public class Frame extends javax.swing.JFrame {
      * Función cambio de estados
      */
     public void validarAccion() {
+        String valuePer = this.cbbPers.getSelectedItem().toString();
         String valueBox = this.BoxSelection.getSelectedItem().toString();
-        switch (valueBox) {
-            case "A1":
-                setEst1(true);
-                setEst2(false);
-                setEst3(false);
-                setEst4(false);
-                break;
-            case "A2":
-                setEst1(false);
-                setEst2(true);
-                setEst3(false);
-                setEst4(false);
-                break;
-            case "A3":
-                setEst1(false);
-                setEst2(false);
-                setEst3(true);
-                setEst4(false);
-                break;
-            case "A4":
-                setEst1(false);
-                setEst2(false);
-                setEst3(false);
-                setEst4(true);
-                break;
-            case "A5":
-                setEst1(false);
-                setEst2(false);
-                setEst3(false);
-                setEst4(false);
-                break;
+        switch (valuePer) {
+            case "Humano":
+                instanciaPersonaje("Humano");
+                switch (valueBox) {
+                    case "A1":
+                        setEst1(true);
+                        setEst2(false);
+                        setEst3(false);
+                        setEst4(false);
+                        break;
+                    case "A2":
+                        setEst1(false);
+                        setEst2(true);
+                        setEst3(false);
+                        setEst4(false);
+                        break;
+                    case "A3":
+                        setEst1(false);
+                        setEst2(false);
+                        setEst3(true);
+                        setEst4(false);
+                        break;
+                    case "A4":
+                        setEst1(false);
+                        setEst2(false);
+                        setEst3(false);
+                        setEst4(true);
+                        break;
+                    case "A5":
+                        setEst1(false);
+                        setEst2(false);
+                        setEst3(false);
+                        setEst4(false);
+                        break;
+                }
+
         }
+
+       
     }
 
     /**
@@ -277,6 +296,7 @@ public class Frame extends javax.swing.JFrame {
         LblAnima3 = new javax.swing.JLabel();
         LblAnima4 = new javax.swing.JLabel();
         BoxSelection = new javax.swing.JComboBox<>();
+        cbbPers = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -302,33 +322,42 @@ public class Frame extends javax.swing.JFrame {
             }
         });
 
+        cbbPers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Humano", "Elfo", "Enano" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(LblAnima1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LblAnima2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LblAnima3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LblAnima4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BtnRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BoxSelection, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(BtnRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 15, Short.MAX_VALUE)
+                        .addComponent(LblAnima1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(LblAnima2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(LblAnima3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(LblAnima4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(cbbPers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BoxSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BoxSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BoxSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbPers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(LblAnima3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                     .addComponent(LblAnima1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -398,5 +427,6 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JLabel LblAnima2;
     private javax.swing.JLabel LblAnima3;
     private javax.swing.JLabel LblAnima4;
+    private javax.swing.JComboBox<String> cbbPers;
     // End of variables declaration//GEN-END:variables
 }
