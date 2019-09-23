@@ -6,11 +6,16 @@
 package interfaz;
 
 import builder.BuilderPersonaje;
+import builder.ConstructorPersonajeElfo;
+import builder.ConstructorPersonajeEnano;
 import builder.ConstructorPersonajeHumano;
 import builder.Director;
 import builder.Personaje;
-import javax.swing.ImageIcon;
+import builder.PrototypePersonaje;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import jdk.nashorn.internal.runtime.PrototypeObject;
 
 /**
  *
@@ -19,6 +24,10 @@ import javax.swing.JOptionPane;
 public class Frame extends javax.swing.JFrame {
 
     private Personaje personaje;
+    private PrototypePersonaje pp;
+    private Personaje pp1;
+    private Personaje pp2;
+    private Personaje pp3;
     private Thread h1;
     private Thread h2;
     private Thread h3;
@@ -41,24 +50,40 @@ public class Frame extends javax.swing.JFrame {
         this.est4 = false;
     }
 
-    public void instanciaPersonaje(String p) {
+    public void instanciaPersonaje(String p) throws CloneNotSupportedException {
         Director director = new Director();
         BuilderPersonaje humano = new ConstructorPersonajeHumano();
+        BuilderPersonaje enano = new ConstructorPersonajeEnano();
+        BuilderPersonaje elfo = new ConstructorPersonajeElfo();
 
-        
-        if (p.equalsIgnoreCase("Humano")) {
+        if (p.equals("Humano")) {
             director.setBuilderPersonaje(humano);
             director.construirPersonaje();
             personaje = director.getPersonaje();
+            pp = new PrototypePersonaje();
+            pp1 = (Personaje) pp.prototipo("humano");
+            pp2 = (Personaje) pp.prototipo("humano");
+            pp3 = (Personaje) pp.prototipo("humano");
+
         } else {
-            if (p.equalsIgnoreCase("Enano")) {
-                director.setBuilderPersonaje(humano);
+            if (p.equals("Enano")) {
+                director.setBuilderPersonaje(enano);
                 director.construirPersonaje();
                 personaje = director.getPersonaje();
+                pp = new PrototypePersonaje();
+                pp1 = (Personaje) pp.prototipo("enano");
+                pp2 = (Personaje) pp.prototipo("enano");
+                pp3 = (Personaje) pp.prototipo("enano");
             } else {
-                director.setBuilderPersonaje(humano);
-                director.construirPersonaje();
-                personaje = director.getPersonaje();
+                if (p.equals("Elfo")) {
+                    director.setBuilderPersonaje(elfo);
+                    director.construirPersonaje();
+                    personaje = director.getPersonaje();
+                    pp = new PrototypePersonaje();
+                    pp1 = (Personaje) pp.prototipo("elfo");
+                    pp2 = (Personaje) pp.prototipo("elfo");
+                    pp3 = (Personaje) pp.prototipo("elfo");
+                }
             }
         }
     }
@@ -173,6 +198,9 @@ public class Frame extends javax.swing.JFrame {
             while (cont < 9 && isEst1()) {
                 cont = (cont + 1) % 8;
                 this.LblAnima1.setIcon(personaje.getWalk()[cont]);
+                this.LblAnima5.setIcon(pp1.getWalk()[cont]);
+                this.LblAnima6.setIcon(pp2.getWalk()[cont]);
+                this.LblAnima7.setIcon(pp3.getWalk()[cont]);
                 Thread.sleep(125);
             }
             this.LblAnima1.setEnabled(false);
@@ -191,6 +219,9 @@ public class Frame extends javax.swing.JFrame {
             while (cont < 7 && isEst2()) {
                 cont = (cont + 1) % 6;
                 this.LblAnima2.setIcon(personaje.getDead()[cont]);
+                this.LblAnima5.setIcon(pp1.getDead()[cont]);
+                this.LblAnima6.setIcon(pp2.getDead()[cont]);
+                this.LblAnima7.setIcon(pp3.getDead()[cont]);
                 Thread.sleep(125);
             }
             this.LblAnima2.setEnabled(false);
@@ -210,6 +241,9 @@ public class Frame extends javax.swing.JFrame {
             while (cont < 14 && isEst3()) {
                 cont = (cont + 1) % 13;
                 this.LblAnima3.setIcon(personaje.getAttack()[cont]);
+                this.LblAnima5.setIcon(pp1.getAttack()[cont]);
+                this.LblAnima6.setIcon(pp2.getAttack()[cont]);
+                this.LblAnima7.setIcon(pp3.getAttack()[cont]);
                 Thread.sleep(125);
             }
             this.LblAnima3.setEnabled(false);
@@ -228,6 +262,9 @@ public class Frame extends javax.swing.JFrame {
             while (cont < 7 && isEst4()) {
                 cont = (cont + 1) % 6;
                 this.LblAnima4.setIcon(personaje.getMove()[cont]);
+                this.LblAnima5.setIcon(pp1.getMove()[cont]);
+                this.LblAnima6.setIcon(pp2.getMove()[cont]);
+                this.LblAnima7.setIcon(pp3.getMove()[cont]);
                 Thread.sleep(125);
             }
             this.LblAnima4.setEnabled(false);
@@ -237,7 +274,7 @@ public class Frame extends javax.swing.JFrame {
     /**
      * Función cambio de estados
      */
-    public void validarAccion() {
+    public void validarAccion() throws CloneNotSupportedException {
         String valuePer = this.cbbPers.getSelectedItem().toString();
         String valueBox = this.BoxSelection.getSelectedItem().toString();
         switch (valuePer) {
@@ -275,10 +312,80 @@ public class Frame extends javax.swing.JFrame {
                         setEst4(false);
                         break;
                 }
+                break;
+            case "Enano":
+                instanciaPersonaje("Enano");
+                switch (valueBox) {
+                    case "A1":
+                        setEst1(true);
+                        setEst2(false);
+                        setEst3(false);
+                        setEst4(false);
+                        break;
+                    case "A2":
+                        setEst1(false);
+                        setEst2(true);
+                        setEst3(false);
+                        setEst4(false);
+                        break;
+                    case "A3":
+                        setEst1(false);
+                        setEst2(false);
+                        setEst3(true);
+                        setEst4(false);
+                        break;
+                    case "A4":
+                        setEst1(false);
+                        setEst2(false);
+                        setEst3(false);
+                        setEst4(true);
+                        break;
+                    case "A5":
+                        setEst1(false);
+                        setEst2(false);
+                        setEst3(false);
+                        setEst4(false);
+                        break;
+                }
+                break;
+            case "Elfo":
+                instanciaPersonaje("Elfo");
+                switch (valueBox) {
+                    case "A1":
+                        setEst1(true);
+                        setEst2(false);
+                        setEst3(false);
+                        setEst4(false);
+                        break;
+                    case "A2":
+                        setEst1(false);
+                        setEst2(true);
+                        setEst3(false);
+                        setEst4(false);
+                        break;
+                    case "A3":
+                        setEst1(false);
+                        setEst2(false);
+                        setEst3(true);
+                        setEst4(false);
+                        break;
+                    case "A4":
+                        setEst1(false);
+                        setEst2(false);
+                        setEst3(false);
+                        setEst4(true);
+                        break;
+                    case "A5":
+                        setEst1(false);
+                        setEst2(false);
+                        setEst3(false);
+                        setEst4(false);
+                        break;
+                }
+                break;
 
         }
 
-       
     }
 
     /**
@@ -297,6 +404,9 @@ public class Frame extends javax.swing.JFrame {
         LblAnima4 = new javax.swing.JLabel();
         BoxSelection = new javax.swing.JComboBox<>();
         cbbPers = new javax.swing.JComboBox<>();
+        LblAnima5 = new javax.swing.JLabel();
+        LblAnima6 = new javax.swing.JLabel();
+        LblAnima7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -324,6 +434,12 @@ public class Frame extends javax.swing.JFrame {
 
         cbbPers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Humano", "Elfo", "Enano" }));
 
+        LblAnima5.setFont(new java.awt.Font("Tahoma", 0, 64)); // NOI18N
+
+        LblAnima6.setFont(new java.awt.Font("Tahoma", 0, 64)); // NOI18N
+
+        LblAnima7.setFont(new java.awt.Font("Tahoma", 0, 64)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -331,11 +447,12 @@ public class Frame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BtnRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(BtnRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 15, Short.MAX_VALUE)
+                        .addComponent(cbbPers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BoxSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(LblAnima1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LblAnima2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -343,12 +460,16 @@ public class Frame extends javax.swing.JFrame {
                         .addComponent(LblAnima3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LblAnima4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(cbbPers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BoxSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(LblAnima6, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(LblAnima7, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(LblAnima5, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,13 +478,19 @@ public class Frame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BoxSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbbPers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(LblAnima3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                    .addComponent(LblAnima1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(LblAnima2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(LblAnima4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(LblAnima1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(LblAnima2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(LblAnima4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LblAnima3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LblAnima5, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                    .addComponent(LblAnima6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LblAnima7, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(BtnRun)
                 .addGap(21, 21, 21))
         );
@@ -377,7 +504,11 @@ public class Frame extends javax.swing.JFrame {
      * @param evt
      */
     private void BtnRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRunActionPerformed
-        validarAccion();
+        try {
+            validarAccion();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         hilos();
     }//GEN-LAST:event_BtnRunActionPerformed
 
@@ -427,6 +558,9 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JLabel LblAnima2;
     private javax.swing.JLabel LblAnima3;
     private javax.swing.JLabel LblAnima4;
+    private javax.swing.JLabel LblAnima5;
+    private javax.swing.JLabel LblAnima6;
+    private javax.swing.JLabel LblAnima7;
     private javax.swing.JComboBox<String> cbbPers;
     // End of variables declaration//GEN-END:variables
 }
